@@ -9,7 +9,7 @@ You cna walk or even fly arouud the park and explore the different amenities thi
 
 <h2>Keyboard/Mouse Movements</h2><br>
 
-<h4>Keyboard:<h4><br>
+<h3>Keyboard:<h3>
 W = Move forward<br>
 A = Move to the left<br>
 S = Move backwards<br>
@@ -17,7 +17,7 @@ D = Move to the right<br>
 Left Arrow = Rotate to the left<br>
 Right Arrow = Rotate to the right<br><br>
 
-<h4>Mouse: <h4><br>
+<h3>Mouse: <h3>
 Right click = walk
 Left Click = fly
 
