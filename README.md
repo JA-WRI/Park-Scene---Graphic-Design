@@ -1,21 +1,28 @@
 # COMP-371
 
-BY:
-
 Jaden Wright-Maurais | 40276168 <br>
 Khyati Vyas | <br><br>
 
-This program is a 3D interactive map of a park. You can walk/fly around the map using the following keyboard moves: <br><br>
+<h1>Description</h1>
+This program is a 3D interactive map of a park. There is a designated path that you can follow made of stone.<br>
+You cna walk or even fly arouud the park and explore the different amenities this park has to offer.<br><br>
 
+<h2>Keyboard/Mouse Movements</h2><br>
+
+Keyboard: <br>
 W = Move forward<br>
 A = Move to the left<br>
 S = Move backwards<br>
 D = Move to the right<br><br>
 
-Right Arrow = Look to the right<br>
-Left Arrow = Look to the left<br>
-Up Arrow = Look foward<br>
-Down Arrow = Look Backwards <br>
+Left Arrow = Rotate to the left<br>
+Up Arrow = Look foward<br><br>
+
+Mouse: <br>
+Right click = walk
+Left Click = fly
+
+
 
 
 
