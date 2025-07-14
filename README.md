@@ -9,7 +9,7 @@ You cna walk or even fly arouud the park and explore the different amenities thi
 
 <h2>Keyboard/Mouse Movements</h2><br>
 
-Keyboard: <br>
+<b>Keyboard:<b><br>
 W = Move forward<br>
 A = Move to the left<br>
 S = Move backwards<br>
