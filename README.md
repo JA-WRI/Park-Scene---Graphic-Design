@@ -2,20 +2,20 @@
 
 BY:
 
-Jaden Wright-Maurais | 40276168
-Khyati Vyas |
+Jaden Wright-Maurais | 40276168 <br>
+Khyati Vyas | <br><br>
 
-This program is a 3D interactive map of a park. You can walk/fly around the map using the following keyboard moves:
+This program is a 3D interactive map of a park. You can walk/fly around the map using the following keyboard moves: <br><br>
 
-W = Move forward
-A = Move to the left 
-S = Move backwards
-D = Move to the right
+W = Move forward<br>
+A = Move to the left<br>
+S = Move backwards<br>
+D = Move to the right<br><br>
 
-Right Arrow = Look to the right
-Left Arrow = Look to the left
-Up Arrow = Look foward
-Down Arrow = Look Backwards 
+Right Arrow = Look to the right<br>
+Left Arrow = Look to the left<br>
+Up Arrow = Look foward<br>
+Down Arrow = Look Backwards <br>
 
 
 
