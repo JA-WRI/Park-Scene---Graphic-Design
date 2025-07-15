@@ -1,7 +1,7 @@
 # COMP-371
 
 Jaden Wright-Maurais | 40276168 <br>
-Khyati Vyas | <br><br>
+Khyati Vyas | 40281818<br><br>
 
 <h1>Description</h1>
 This program is a 3D interactive map of a park. There is a designated path that you can follow made of stone.<br>
