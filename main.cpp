@@ -77,7 +77,109 @@ float pathVertices[] = {
     -0.5f, 0.01f, -5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
 };
 
-unsigned int groundVAO, groundVBO, pathVAO, pathVBO;
+float trunkVertices[] = {
+    // positions            // tex coords
+    // Front face
+    -0.15f, 0.0f, 0.15f,    0.0f, 0.0f,
+     0.15f, 0.0f, 0.15f,    1.0f, 0.0f,
+     0.15f, 2.0f, 0.15f,    1.0f, 1.0f,
+     0.15f, 2.0f, 0.15f,    1.0f, 1.0f,
+    -0.15f, 2.0f, 0.15f,    0.0f, 1.0f,
+    -0.15f, 0.0f, 0.15f,    0.0f, 0.0f,
+
+    // Back face
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+    -0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
+     0.15f, 2.0f, -0.15f,   1.0f, 1.0f,
+     0.15f, 2.0f, -0.15f,   1.0f, 1.0f,
+     0.15f, 0.0f, -0.15f,   1.0f, 0.0f,
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+
+    // Left face
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+    -0.15f, 0.0f,  0.15f,   1.0f, 0.0f,
+    -0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+    -0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+    -0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+
+    // Right face
+     0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+     0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
+     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+     0.15f, 0.0f,  0.15f,   1.0f, 0.0f,
+     0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+
+    // Top face
+    -0.15f, 2.0f, -0.15f,   0.0f, 0.0f,
+    -0.15f, 2.0f,  0.15f,   0.0f, 1.0f,
+     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
+     0.15f, 2.0f, -0.15f,   1.0f, 0.0f,
+    -0.15f, 2.0f, -0.15f,   0.0f, 0.0f,
+
+    // Bottom face
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
+     0.15f, 0.0f, -0.15f,   1.0f, 0.0f,
+     0.15f, 0.0f,  0.15f,   1.0f, 1.0f,
+     0.15f, 0.0f,  0.15f,   1.0f, 1.0f,
+    -0.15f, 0.0f,  0.15f,   0.0f, 1.0f,
+    -0.15f, 0.0f, -0.15f,   0.0f, 0.0f
+};
+
+float leavesVertices[] = {
+    // positions            // tex coords
+    // Front face
+    -0.8f, 1.5f, 0.8f,     0.0f, 0.0f,
+     0.8f, 1.5f, 0.8f,     1.0f, 0.0f,
+     0.8f, 3.5f, 0.8f,     1.0f, 1.0f,
+     0.8f, 3.5f, 0.8f,     1.0f, 1.0f,
+    -0.8f, 3.5f, 0.8f,     0.0f, 1.0f,
+    -0.8f, 1.5f, 0.8f,     0.0f, 0.0f,
+
+    // Back face
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+    -0.8f, 3.5f, -0.8f,    0.0f, 1.0f,
+     0.8f, 3.5f, -0.8f,    1.0f, 1.0f,
+     0.8f, 3.5f, -0.8f,    1.0f, 1.0f,
+     0.8f, 1.5f, -0.8f,    1.0f, 0.0f,
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+
+    // Left face
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+    -0.8f, 1.5f,  0.8f,    1.0f, 0.0f,
+    -0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+    -0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+    -0.8f, 3.5f, -0.8f,    0.0f, 1.0f,
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+
+    // Right face
+     0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+     0.8f, 3.5f, -0.8f,    0.0f, 1.0f,
+     0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+     0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+     0.8f, 1.5f,  0.8f,    1.0f, 0.0f,
+     0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+
+    // Top face
+    -0.8f, 3.5f, -0.8f,    0.0f, 0.0f,
+    -0.8f, 3.5f,  0.8f,    0.0f, 1.0f,
+     0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+     0.8f, 3.5f,  0.8f,    1.0f, 1.0f,
+     0.8f, 3.5f, -0.8f,    1.0f, 0.0f,
+    -0.8f, 3.5f, -0.8f,    0.0f, 0.0f,
+
+    // Bottom face
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f,
+     0.8f, 1.5f, -0.8f,    1.0f, 0.0f,
+     0.8f, 1.5f,  0.8f,    1.0f, 1.0f,
+     0.8f, 1.5f,  0.8f,    1.0f, 1.0f,
+    -0.8f, 1.5f,  0.8f,    0.0f, 1.0f,
+    -0.8f, 1.5f, -0.8f,    0.0f, 0.0f
+};
+
+unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO;
 
 int main() {
     // Initialize GLFW
@@ -106,12 +208,13 @@ int main() {
     glEnable(GL_DEPTH_TEST);
     
 
-    // Ground VAO
+    // ground VAO
     glGenVertexArrays(1, &groundVAO);
     glGenBuffers(1, &groundVBO);
     glBindVertexArray(groundVAO);
     glBindBuffer(GL_ARRAY_BUFFER, groundVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(groundVertices), groundVertices, GL_STATIC_DRAW);
+    // position 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -120,12 +223,14 @@ int main() {
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 
+
     // Path VAO
     glGenVertexArrays(1, &pathVAO);
     glGenBuffers(1, &pathVBO);
     glBindVertexArray(pathVAO);
     glBindBuffer(GL_ARRAY_BUFFER, pathVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(pathVertices), pathVertices, GL_STATIC_DRAW);
+    // position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -133,6 +238,37 @@ int main() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
+
+
+    // tree VAO
+    glGenVertexArrays(1, &trunkVAO);
+    glGenBuffers(1, &trunkVBO);
+    glBindVertexArray(trunkVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, trunkVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(trunkVertices), trunkVertices, GL_STATIC_DRAW);
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture 
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+
+    // Leaves VAO
+    glGenVertexArrays(1, &leavesVAO);
+    glGenBuffers(1, &leavesVBO);
+    glBindVertexArray(leavesVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, leavesVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(leavesVertices), leavesVertices, GL_STATIC_DRAW);
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture 
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
 
     // Shader sources
     const char* vertexShaderSource = R"(
@@ -142,8 +278,9 @@ int main() {
         out vec2 TexCoord;
         uniform mat4 projection;
         uniform mat4 view;
+        uniform mat4 model;
         void main() {
-            gl_Position = projection * view * vec4(aPos, 1.0);
+            gl_Position = projection * view * model * vec4(aPos, 1.0);
             TexCoord = aTexCoord;
         }
     )";
@@ -175,6 +312,7 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+
     // Load grass texture
     int texWidth, texHeight, nrChannels;
     unsigned char* data = stbi_load("resources/grass.jpg", &texWidth, &texHeight, &nrChannels, 0);
@@ -199,6 +337,7 @@ int main() {
 
     stbi_image_free(data);
 
+
     //Load path teaxture
     int stoneWidth, stoneHeight, stoneChannels;
     unsigned char* stoneData = stbi_load("resources/stone.jpg", &stoneWidth, &stoneHeight, &stoneChannels, 0);
@@ -222,6 +361,52 @@ int main() {
 
     stbi_image_free(stoneData);
 
+
+    //Load Bark texture
+    int barkWidth, barkHeight, barkChannels;
+    unsigned char* barkData = stbi_load("resources/bark.jpg", &barkWidth, &barkHeight, &barkChannels, 0);
+    if (!barkData) { std::cerr << "Failed to load bark texture." << std::endl; return -1; }
+    GLuint barkTexture;
+    glGenTextures(1, &barkTexture);
+    glBindTexture(GL_TEXTURE_2D, barkTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum barkFormat = (barkChannels == 1) ? GL_RED : (barkChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, barkFormat, barkWidth, barkHeight, 0, barkFormat, GL_UNSIGNED_BYTE, barkData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(barkData);
+
+
+    //Load leave textures
+    int leavesWidth, leavesHeight, leavesChannels;
+    unsigned char* leavesData = stbi_load("resources/leaves.jpg", &leavesWidth, &leavesHeight, &leavesChannels, 0);
+    if (!leavesData) {
+        std::cerr << "Failed to load leaves texture. Using grass texture instead." << std::endl;
+        // If you don't have a leaves texture, we'll use the grass texture
+        leavesData = stbi_load("resources/grass.jpg", &leavesWidth, &leavesHeight, &leavesChannels, 0);
+    }
+
+    GLuint leavesTexture;
+    glGenTextures(1, &leavesTexture);
+    glBindTexture(GL_TEXTURE_2D, leavesTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum leavesFormat = (leavesChannels == 1) ? GL_RED : (leavesChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, leavesFormat, leavesWidth, leavesHeight, 0, leavesFormat, GL_UNSIGNED_BYTE, leavesData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(leavesData);
+
+
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
@@ -238,20 +423,62 @@ int main() {
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.f / 600.f, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
 
+        // Set projection and view matrices once
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &projection[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &view[0][0]);
+
 
         //Draw grass
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, grassTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(groundVAO);
+        // Set model matrix for ground (identity matrix - no transformation)
+        glm::mat4 groundModel = glm::mat4(1.0f);
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &groundModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
 
         // Draw stone path
         glBindTexture(GL_TEXTURE_2D, stoneTexture);
         glBindVertexArray(pathVAO);
+        // Set model matrix for path (identity matrix - no transformation)
+        glm::mat4 pathModel = glm::mat4(1.0f);
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &pathModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+        // Draw tree trunks
+        glBindTexture(GL_TEXTURE_2D, barkTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(trunkVAO);
+
+        // Tree positions (4 corners)
+        glm::vec3 trunkPositions[4] = {
+            glm::vec3(-4.0f, 0.0f, -4.0f), // bottom-left
+            glm::vec3( 4.0f, 0.0f, -4.0f), // bottom-right
+            glm::vec3(-4.0f, 0.0f,  4.0f), // top-left
+            glm::vec3( 4.0f, 0.0f,  4.0f)  // top-right
+        };
+
+        // Draw each tree trunk
+        for (int i = 0; i < 4; ++i) {
+            glm::mat4 model = glm::translate(glm::mat4(1.0f), trunkPositions[i]);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+
+        // Draw tree leaves
+        glBindTexture(GL_TEXTURE_2D, leavesTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(leavesVAO);
+
+        // Draw leaves for each tree (same positions as trunks)
+        for (int i = 0; i < 4; ++i) {
+            glm::mat4 model = glm::translate(glm::mat4(1.0f), trunkPositions[i]);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
