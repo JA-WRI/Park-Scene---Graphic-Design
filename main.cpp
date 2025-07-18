@@ -58,7 +58,7 @@ void processInput(GLFWwindow* window) {
 }
 
 float groundVertices[] = {
-    // positions          // normals           // tex coords
+    // positions          // normals         // texture 
    -5.0f, 0.0f, -5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
     5.0f, 0.0f, -5.0f,   0.0f, 1.0f, 0.0f,    5.0f, 0.0f,
     5.0f, 0.0f,  5.0f,   0.0f, 1.0f, 0.0f,    5.0f, 5.0f,
@@ -68,7 +68,16 @@ float groundVertices[] = {
    -5.0f, 0.0f, -5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
 };
 
-unsigned int groundVAO, groundVBO;
+float pathVertices[] = {
+    -0.5f, 0.01f, -5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+     0.5f, 0.01f, -5.0f,   0.0f, 1.0f, 0.0f,    1.0f, 0.0f,
+     0.5f, 0.01f,  5.0f,   0.0f, 1.0f, 0.0f,    1.0f, 6.0f,
+     0.5f, 0.01f,  5.0f,   0.0f, 1.0f, 0.0f,    1.0f, 6.0f,
+    -0.5f, 0.01f,  5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 6.0f,
+    -0.5f, 0.01f, -5.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
+};
+
+unsigned int groundVAO, groundVBO, pathVAO, pathVBO;
 
 int main() {
     // Initialize GLFW
@@ -97,21 +106,30 @@ int main() {
     glEnable(GL_DEPTH_TEST);
     
 
-    // Setup ground VAO and VBO
+    // Ground VAO
     glGenVertexArrays(1, &groundVAO);
     glGenBuffers(1, &groundVBO);
-
     glBindVertexArray(groundVAO);
     glBindBuffer(GL_ARRAY_BUFFER, groundVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(groundVertices), groundVertices, GL_STATIC_DRAW);
-
-    // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // Normal attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    // Texture coords attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    // Path VAO
+    glGenVertexArrays(1, &pathVAO);
+    glGenBuffers(1, &pathVBO);
+    glBindVertexArray(pathVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, pathVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(pathVertices), pathVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
@@ -181,6 +199,29 @@ int main() {
 
     stbi_image_free(data);
 
+    //Load path teaxture
+    int stoneWidth, stoneHeight, stoneChannels;
+    unsigned char* stoneData = stbi_load("resources/stone.jpg", &stoneWidth, &stoneHeight, &stoneChannels, 0);
+    if (!stoneData) {
+        std::cerr << "Failed to load stone texture." << std::endl;
+        return -1;
+    }
+
+    GLuint stoneTexture;
+    glGenTextures(1, &stoneTexture);
+    glBindTexture(GL_TEXTURE_2D, stoneTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum stoneFormat = (stoneChannels == 1) ? GL_RED : (stoneChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, stoneFormat, stoneWidth, stoneHeight, 0, stoneFormat, GL_UNSIGNED_BYTE, stoneData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(stoneData);
+
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
@@ -200,11 +241,16 @@ int main() {
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &projection[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &view[0][0]);
 
+        //Draw grass
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, grassTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
-
         glBindVertexArray(groundVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Draw stone path
+        glBindTexture(GL_TEXTURE_2D, stoneTexture);
+        glBindVertexArray(pathVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers(window);
