@@ -57,11 +57,8 @@ void processInput(GLFWwindow* window) {
         glfwSetWindowShouldClose(window, true);
 }
 
+float grassTopVertices[] ={
 
-
-float groundVertices[] = {
-    //Top Face
-    // position                  normal                texture
    -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
     10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 0.0f,
     10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
@@ -69,6 +66,10 @@ float groundVertices[] = {
     10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
    -10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 10.0f,
    -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+};
+
+
+float groundVertices[] = {
 
     // Bottom Face (y = -1.0f) 
    -10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
@@ -113,65 +114,66 @@ float groundVertices[] = {
 
     10.0f,  0.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
     10.0f,  0.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
+    10.0f, -1.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f
 };
 
 float pathVertices[] = {
-    -1.0f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
-     1.0f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    1.0f, 0.0f,
-     1.0f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    1.0f, 6.0f,
-     1.0f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    1.0f, 6.0f,
-    -1.0f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 6.0f,
-    -1.0f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
+    -0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+     0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 0.0f,
+     0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
+     0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
+    -0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 40.0f,
+    -0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
 };
 
 float trunkVertices[] = {
     // positions            // tex coords
     // Front face
     -0.15f, 0.0f, 0.15f,    0.0f, 0.0f,
-     0.15f, 0.0f, 0.15f,    1.0f, 0.0f,
-     0.15f, 2.0f, 0.15f,    1.0f, 1.0f,
-     0.15f, 2.0f, 0.15f,    1.0f, 1.0f,
-    -0.15f, 2.0f, 0.15f,    0.0f, 1.0f,
+     0.15f, 0.0f, 0.15f,    6.0f, 0.0f,
+     0.15f, 2.0f, 0.15f,    6.0f, 8.0f,
+     0.15f, 2.0f, 0.15f,    6.0f, 8.0f,
+    -0.15f, 2.0f, 0.15f,    0.0f, 8.0f,
     -0.15f, 0.0f, 0.15f,    0.0f, 0.0f,
 
     // Back face
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
-    -0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
-     0.15f, 2.0f, -0.15f,   1.0f, 1.0f,
-     0.15f, 2.0f, -0.15f,   1.0f, 1.0f,
-     0.15f, 0.0f, -0.15f,   1.0f, 0.0f,
+    -0.15f, 2.0f, -0.15f,   0.0f, 8.0f,
+     0.15f, 2.0f, -0.15f,   6.0f, 8.0f,
+     0.15f, 2.0f, -0.15f,   6.0f, 8.0f,
+     0.15f, 0.0f, -0.15f,   6.0f, 0.0f,
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
 
     // Left face
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
-    -0.15f, 0.0f,  0.15f,   1.0f, 0.0f,
-    -0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-    -0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-    -0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
+    -0.15f, 0.0f,  0.15f,   6.0f, 0.0f,
+    -0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+    -0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+    -0.15f, 2.0f, -0.15f,   0.0f, 8.0f,
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
 
     // Right face
      0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
-     0.15f, 2.0f, -0.15f,   0.0f, 1.0f,
-     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-     0.15f, 0.0f,  0.15f,   1.0f, 0.0f,
+     0.15f, 2.0f, -0.15f,   0.0f, 8.0f,
+     0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+     0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+     0.15f, 0.0f,  0.15f,   6.0f, 0.0f,
      0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
 
     // Top face
     -0.15f, 2.0f, -0.15f,   0.0f, 0.0f,
-    -0.15f, 2.0f,  0.15f,   0.0f, 1.0f,
-     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-     0.15f, 2.0f,  0.15f,   1.0f, 1.0f,
-     0.15f, 2.0f, -0.15f,   1.0f, 0.0f,
+    -0.15f, 2.0f,  0.15f,   0.0f, 8.0f,
+     0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+     0.15f, 2.0f,  0.15f,   6.0f, 8.0f,
+     0.15f, 2.0f, -0.15f,   6.0f, 0.0f,
     -0.15f, 2.0f, -0.15f,   0.0f, 0.0f,
 
     // Bottom face
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f,
-     0.15f, 0.0f, -0.15f,   1.0f, 0.0f,
-     0.15f, 0.0f,  0.15f,   1.0f, 1.0f,
-     0.15f, 0.0f,  0.15f,   1.0f, 1.0f,
-    -0.15f, 0.0f,  0.15f,   0.0f, 1.0f,
+     0.15f, 0.0f, -0.15f,   6.0f, 0.0f,
+     0.15f, 0.0f,  0.15f,   6.0f, 8.0f,
+     0.15f, 0.0f,  0.15f,   6.0f, 8.0f,
+    -0.15f, 0.0f,  0.15f,   0.0f, 8.0f,
     -0.15f, 0.0f, -0.15f,   0.0f, 0.0f
 };
 
@@ -226,7 +228,8 @@ float leavesVertices[] = {
     -0.8f, 1.5f, -0.8f,    0.0f, 0.0f
 };
 
-unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO;
+
+unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO;
 
 int main() {
     // Initialize GLFW
@@ -262,6 +265,23 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, groundVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(groundVertices), groundVertices, GL_STATIC_DRAW);
     // position 
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    //normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    //texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    //grass VAO
+    glGenVertexArrays(1, &grassVAO);
+    glGenBuffers(1, &grassVBO);
+    glBindVertexArray(grassVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, grassVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(grassTopVertices), grassTopVertices, GL_STATIC_DRAW);
+    //position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     //normal
@@ -386,6 +406,29 @@ int main() {
 
     stbi_image_free(data);
 
+    // Load dirt texture
+    int dirtWidth, dirtHeight, dirtChannels;
+    unsigned char* dirtData = stbi_load("resources/dirt.jpg", &dirtWidth, &dirtHeight, &dirtChannels, 0);
+    if (!dirtData) {
+        std::cerr << "Failed to load dirt texture.\n";
+        return -1;
+    }
+
+    GLuint dirtTexture;
+    glGenTextures(1, &dirtTexture);
+    glBindTexture(GL_TEXTURE_2D, dirtTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum dirtFormat = (dirtChannels == 1) ? GL_RED : (dirtChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, dirtFormat, dirtWidth, dirtHeight, 0, dirtFormat, GL_UNSIGNED_BYTE, dirtData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(dirtData);
+
 
     //Load path teaxture
     int stoneWidth, stoneHeight, stoneChannels;
@@ -481,12 +524,18 @@ int main() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, grassTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
-        glBindVertexArray(groundVAO);
+        glBindVertexArray(grassVAO);
         // Set model matrix for ground (identity matrix - no transformation)
         glm::mat4 groundModel = glm::mat4(1.0f);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &groundModel[0][0]);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
+        //draw dirt
+        glBindTexture(GL_TEXTURE_2D, dirtTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(groundVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6 * 6);
+        glBindVertexArray(0);
 
         // Draw stone path
         glBindTexture(GL_TEXTURE_2D, stoneTexture);
@@ -504,10 +553,10 @@ int main() {
 
         // Tree positions (4 corners)
         glm::vec3 trunkPositions[4] = {
-            glm::vec3(-4.0f, 0.0f, -4.0f), // bottom-left
-            glm::vec3( 4.0f, 0.0f, -4.0f), // bottom-right
-            glm::vec3(-4.0f, 0.0f,  4.0f), // top-left
-            glm::vec3( 4.0f, 0.0f,  4.0f)  // top-right
+            glm::vec3(-6.0f, 0.0f, -6.0f), // bottom-left
+            glm::vec3( 6.0f, 0.0f, -6.0f), // bottom-right
+            glm::vec3(-6.0f, 0.0f,  6.0f), // top-left
+            glm::vec3( 6.0f, 0.0f,  6.0f)  // top-right
         };
 
         // Draw each tree trunk
