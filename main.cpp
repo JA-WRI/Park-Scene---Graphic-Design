@@ -57,15 +57,62 @@ void processInput(GLFWwindow* window) {
         glfwSetWindowShouldClose(window, true);
 }
 
-float groundVertices[] = {
-    // positions          // normals         // texture 
-   -10.0f, 0.0f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
-    10.0f, 0.0f, -10.0f,   0.0f, 1.0f, 0.0f,    10.0f, 0.0f,
-    10.0f, 0.0f,  10.0f,   0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
 
-    10.0f, 0.0f,  10.0f,   0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
-   -10.0f, 0.0f,  10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 10.0f,
-   -10.0f, 0.0f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
+
+float groundVertices[] = {
+    //Top Face
+    // position                  normal                texture
+   -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+    10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 0.0f,
+    10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
+
+    10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
+   -10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 10.0f,
+   -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+
+    // Bottom Face (y = -1.0f) 
+   -10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+    10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 0.0f,
+    10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
+
+    10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
+   -10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 10.0f,
+   -10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+
+    //Front Face (z = 10.0f)
+   -10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+    10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 0.0f,
+    10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
+
+    10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
+   -10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f,
+   -10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+
+    // Back Face (z = -10.0f) 
+   -10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+    10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 0.0f,
+    10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
+
+    10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
+   -10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 1.0f,
+   -10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+
+    //Left Face (x = -10.0f) 
+   -10.0f, -1.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+   -10.0f, -1.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
+   -10.0f,  0.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+
+   -10.0f,  0.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+   -10.0f,  0.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
+   -10.0f, -1.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+
+    //Right Face (x = 10.0f)
+    10.0f, -1.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+    10.0f, -1.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
+    10.0f,  0.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+
+    10.0f,  0.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+    10.0f,  0.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
 };
 
 float pathVertices[] = {
@@ -217,8 +264,10 @@ int main() {
     // position 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    //normal
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    //texture
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
@@ -436,7 +485,7 @@ int main() {
         // Set model matrix for ground (identity matrix - no transformation)
         glm::mat4 groundModel = glm::mat4(1.0f);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &groundModel[0][0]);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         // Draw stone path
