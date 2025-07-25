@@ -59,71 +59,71 @@ void processInput(GLFWwindow* window) {
 
 float grassTopVertices[] ={
 
-   -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
-    10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 0.0f,
-    10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
+   -7.0f, 0.0f, -7.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+    7.0f, 0.0f, -7.0f,    0.0f, 1.0f, 0.0f,    10.0f, 0.0f,
+    7.0f, 0.0f,  7.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
 
-    10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
-   -10.0f, 0.0f,  10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 10.0f,
-   -10.0f, 0.0f, -10.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+    7.0f, 0.0f,  7.0f,    0.0f, 1.0f, 0.0f,    10.0f, 10.0f,
+   -7.0f, 0.0f,  7.0f,    0.0f, 1.0f, 0.0f,    0.0f, 10.0f,
+   -7.0f, 0.0f, -7.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
 };
 
 
 float groundVertices[] = {
 
     // Bottom Face (y = -1.0f) 
-   -10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
-    10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 0.0f,
-    10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
+   -7.0f, -1.0f, -7.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+    7.0f, -1.0f, -7.0f,   0.0f, -1.0f, 0.0f,   10.0f, 0.0f,
+    7.0f, -1.0f,  7.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
 
-    10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
-   -10.0f, -1.0f,  10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 10.0f,
-   -10.0f, -1.0f, -10.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+    7.0f, -1.0f,  7.0f,   0.0f, -1.0f, 0.0f,   10.0f, 10.0f,
+   -7.0f, -1.0f,  7.0f,   0.0f, -1.0f, 0.0f,   0.0f, 10.0f,
+   -7.0f, -1.0f, -7.0f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
 
     //Front Face (z = 10.0f)
-   -10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
-    10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 0.0f,
-    10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
+   -7.0f, -1.0f, 7.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+    7.0f, -1.0f, 7.0f,    0.0f, 0.0f, 1.0f,    10.0f, 0.0f,
+    7.0f,  0.0f, 7.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
 
-    10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
-   -10.0f,  0.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f,
-   -10.0f, -1.0f, 10.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+    7.0f,  0.0f, 7.0f,    0.0f, 0.0f, 1.0f,    10.0f, 1.0f,
+   -7.0f,  0.0f, 7.0f,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f,
+   -7.0f, -1.0f, 7.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
 
     // Back Face (z = -10.0f) 
-   -10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
-    10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 0.0f,
-    10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
+   -7.0f, -1.0f, -7.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+    7.0f, -1.0f, -7.0f,   0.0f, 0.0f, -1.0f,   10.0f, 0.0f,
+    7.0f,  0.0f, -7.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
 
-    10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
-   -10.0f,  0.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 1.0f,
-   -10.0f, -1.0f, -10.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+    7.0f,  0.0f, -7.0f,   0.0f, 0.0f, -1.0f,   10.0f, 1.0f,
+   -7.0f,  0.0f, -7.0f,   0.0f, 0.0f, -1.0f,   0.0f, 1.0f,
+   -7.0f, -1.0f, -7.0f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
 
     //Left Face (x = -10.0f) 
-   -10.0f, -1.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
-   -10.0f, -1.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
-   -10.0f,  0.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+   -7.0f, -1.0f, -7.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+   -7.0f, -1.0f,  7.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
+   -7.0f,  0.0f,  7.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
 
-   -10.0f,  0.0f,  10.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
-   -10.0f,  0.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
-   -10.0f, -1.0f, -10.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+   -7.0f,  0.0f,  7.0f,  -1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+   -7.0f,  0.0f, -7.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
+   -7.0f, -1.0f, -7.0f,  -1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
 
     //Right Face (x = 10.0f)
-    10.0f, -1.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
-    10.0f, -1.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
-    10.0f,  0.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+    7.0f, -1.0f, -7.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f,
+    7.0f, -1.0f,  7.0f,   1.0f, 0.0f, 0.0f,    10.0f, 0.0f,
+    7.0f,  0.0f,  7.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
 
-    10.0f,  0.0f,  10.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
-    10.0f,  0.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
-    10.0f, -1.0f, -10.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f
+    7.0f,  0.0f,  7.0f,   1.0f, 0.0f, 0.0f,    10.0f, 1.0f,
+    7.0f,  0.0f, -7.0f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f,
+    7.0f, -1.0f, -7.0f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f
 };
 
 float pathVertices[] = {
-    -0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
-     0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 0.0f,
-     0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
-     0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
-    -0.7f, 0.01f,  10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 40.0f,
-    -0.7f, 0.01f, -10.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
+    -0.7f, 0.01f, -7.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+     0.7f, 0.01f, -7.0f,   0.0f, 1.0f, 0.0f,    6.0f, 0.0f,
+     0.7f, 0.01f,  7.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
+     0.7f, 0.01f,  7.0f,   0.0f, 1.0f, 0.0f,    6.0f, 40.0f,
+    -0.7f, 0.01f,  7.0f,   0.0f, 1.0f, 0.0f,    0.0f, 40.0f,
+    -0.7f, 0.01f, -7.0f,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f
 };
 
 float trunkVertices[] = {
@@ -228,8 +228,102 @@ float leavesVertices[] = {
     -0.8f, 1.5f, -0.8f,    0.0f, 0.0f
 };
 
+// Flower bed base vertices (rectangular raised bed)
+float flowerBedVertices[] = {
+    // Top face (slightly raised above ground)
+    1.0f, 0.05f, 1.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+    7.0f, 0.05f, 1.0f,    0.0f, 1.0f, 0.0f,    6.0f, 0.0f,
+    7.0f, 0.05f, 7.0f,    0.0f, 1.0f, 0.0f,    6.0f, 6.0f,
+    7.0f, 0.05f, 7.0f,    0.0f, 1.0f, 0.0f,    6.0f, 6.0f,
+    1.0f, 0.05f, 7.0f,    0.0f, 1.0f, 0.0f,    0.0f, 6.0f,
+    1.0f, 0.05f, 1.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+};
 
-unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO;
+// Simple flower vertices (cross-shaped billboards)
+float flowerVertices[] = {
+    // First cross (vertical) - flipped texture coordinates
+    -0.3f, 0.1f, 0.0f,    0.0f, 1.0f,
+     0.3f, 0.1f, 0.0f,    1.0f, 1.0f,
+     0.3f, 0.8f, 0.0f,    1.0f, 0.0f,
+     0.3f, 0.8f, 0.0f,    1.0f, 0.0f,
+    -0.3f, 0.8f, 0.0f,    0.0f, 0.0f,
+    -0.3f, 0.1f, 0.0f,    0.0f, 1.0f,
+
+    // Second cross (horizontal, rotated 90 degrees) - flipped texture coordinates
+     0.0f, 0.1f, -0.3f,   0.0f, 1.0f,
+     0.0f, 0.1f,  0.3f,   1.0f, 1.0f,
+     0.0f, 0.8f,  0.3f,   1.0f, 0.0f,
+     0.0f, 0.8f,  0.3f,   1.0f, 0.0f,
+     0.0f, 0.8f, -0.3f,   0.0f, 0.0f,
+     0.0f, 0.1f, -0.3f,   0.0f, 1.0f,
+};
+
+float sandVertices[] = {
+    // Bottom row of triangles - more dramatic height variations
+    -6.5f, 0.05f, -5.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+    -4.25f, 0.12f, -5.0f,   0.0f, 1.0f, 0.0f,    0.225f, 0.0f,
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+    -6.5f, 0.08f, -2.5f,    0.0f, 1.0f, 0.0f,    0.0f, 0.25f,
+    -6.5f, 0.05f, -5.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
+
+    -4.25f, 0.12f, -5.0f,   0.0f, 1.0f, 0.0f,    0.225f, 0.0f,
+    -2.0f, 0.03f, -5.0f,    0.0f, 1.0f, 0.0f,    0.45f, 0.0f,
+    -2.0f, 0.22f, -2.5f,    0.0f, 1.0f, 0.0f,    0.45f, 0.25f,
+    -2.0f, 0.22f, -2.5f,    0.0f, 1.0f, 0.0f,    0.45f, 0.25f,
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+    -4.25f, 0.12f, -5.0f,   0.0f, 1.0f, 0.0f,    0.225f, 0.0f,
+
+    // Middle row of triangles - varied heights creating dips and mounds
+    -6.5f, 0.08f, -2.5f,    0.0f, 1.0f, 0.0f,    0.0f, 0.25f,
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+    -6.5f, 0.16f, 0.0f,     0.0f, 1.0f, 0.0f,    0.0f, 0.5f,
+    -6.5f, 0.08f, -2.5f,    0.0f, 1.0f, 0.0f,    0.0f, 0.25f,
+
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+    -2.0f, 0.22f, -2.5f,    0.0f, 1.0f, 0.0f,    0.45f, 0.25f,
+    -2.0f, 0.09f, 0.0f,     0.0f, 1.0f, 0.0f,    0.45f, 0.5f,
+    -2.0f, 0.09f, 0.0f,     0.0f, 1.0f, 0.0f,    0.45f, 0.5f,
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+    -4.25f, 0.18f, -2.5f,   0.0f, 1.0f, 0.0f,    0.225f, 0.25f,
+
+    // Upper middle row of triangles - creating hills and valleys
+    -6.5f, 0.16f, 0.0f,     0.0f, 1.0f, 0.0f,    0.0f, 0.5f,
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f,
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f,
+    -6.5f, 0.04f, 2.5f,     0.0f, 1.0f, 0.0f,    0.0f, 0.75f,
+    -6.5f, 0.16f, 0.0f,     0.0f, 1.0f, 0.0f,    0.0f, 0.5f,
+
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+    -2.0f, 0.09f, 0.0f,     0.0f, 1.0f, 0.0f,    0.45f, 0.5f,
+    -2.0f, 0.28f, 2.5f,     0.0f, 1.0f, 0.0f,    0.45f, 0.75f,
+    -2.0f, 0.28f, 2.5f,     0.0f, 1.0f, 0.0f,    0.45f, 0.75f,
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f,
+    -4.25f, 0.06f, 0.0f,    0.0f, 1.0f, 0.0f,    0.225f, 0.5f,
+
+    // Top row of triangles - final dramatic variations
+    -6.5f, 0.04f, 2.5f,     0.0f, 1.0f, 0.0f,    0.0f, 0.75f,
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f,
+    -4.25f, 0.02f, 5.0f,    0.0f, 1.0f, 0.0f,    0.225f, 1.0f,
+    -4.25f, 0.02f, 5.0f,    0.0f, 1.0f, 0.0f,    0.225f, 1.0f,
+    -6.5f, 0.14f, 5.0f,     0.0f, 1.0f, 0.0f,    0.0f, 1.0f,
+    -6.5f, 0.04f, 2.5f,     0.0f, 1.0f, 0.0f,    0.0f, 0.75f,
+
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f,
+    -2.0f, 0.28f, 2.5f,     0.0f, 1.0f, 0.0f,    0.45f, 0.75f,
+    -2.0f, 0.07f, 5.0f,     0.0f, 1.0f, 0.0f,    0.45f, 1.0f,
+    -2.0f, 0.07f, 5.0f,     0.0f, 1.0f, 0.0f,    0.45f, 1.0f,
+    -4.25f, 0.02f, 5.0f,    0.0f, 1.0f, 0.0f,    0.225f, 1.0f,
+    -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f
+};
+
+
+unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;;
+unsigned int sandVAO, sandVBO;
+
 
 int main() {
     // Initialize GLFW
@@ -339,6 +433,53 @@ int main() {
     glBindVertexArray(0);
 
 
+    // Flower bed VAO setup
+    glGenVertexArrays(1, &flowerBedVAO);
+    glGenBuffers(1, &flowerBedVBO);
+    glBindVertexArray(flowerBedVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, flowerBedVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(flowerBedVertices), flowerBedVertices, GL_STATIC_DRAW);
+    // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // Normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    // Texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    // Flower VAO setup
+    glGenVertexArrays(1, &flowerVAO);
+    glGenBuffers(1, &flowerVBO);
+    glBindVertexArray(flowerVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, flowerVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(flowerVertices), flowerVertices, GL_STATIC_DRAW);
+    // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // Texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    // Sand VAO
+    glGenVertexArrays(1, &sandVAO);
+    glGenBuffers(1, &sandVBO);
+    glBindVertexArray(sandVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, sandVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(sandVertices), sandVertices, GL_STATIC_DRAW);
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    // texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
     // Shader sources
     const char* vertexShaderSource = R"(
         #version 330 core
@@ -499,6 +640,53 @@ int main() {
     stbi_image_free(leavesData);
 
 
+    // Load flower texture
+    int flowerWidth, flowerHeight, flowerChannels;
+    unsigned char* flowerData = stbi_load("resources/flowers.png", &flowerWidth, &flowerHeight, &flowerChannels, 0);
+    if (!flowerData) {
+        std::cerr << "Failed to load flower texture. Using grass texture instead." << std::endl;
+        // Fallback to grass texture if flower texture doesn't exist
+        flowerData = stbi_load("resources/grass.jpg", &flowerWidth, &flowerHeight, &flowerChannels, 0);
+    }
+    GLuint flowerTexture;
+    glGenTextures(1, &flowerTexture);
+    glBindTexture(GL_TEXTURE_2D, flowerTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum flowerFormat = (flowerChannels == 1) ? GL_RED : (flowerChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, flowerFormat, flowerWidth, flowerHeight, 0, flowerFormat, GL_UNSIGNED_BYTE, flowerData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(flowerData);
+
+    // Load sand texture
+    int sandWidth, sandHeight, sandChannels;
+    unsigned char* sandData = stbi_load("resources/sand.jpg", &sandWidth, &sandHeight, &sandChannels, 0);
+    if (!sandData) {
+        std::cerr << "Failed to load sand texture. Using dirt texture instead." << std::endl;
+        // Fallback to dirt texture if sand texture doesn't exist
+        sandData = stbi_load("resources/dirt.jpg", &sandWidth, &sandHeight, &sandChannels, 0);
+    }
+
+    GLuint sandTexture;
+    glGenTextures(1, &sandTexture);
+    glBindTexture(GL_TEXTURE_2D, sandTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum sandFormat = (sandChannels == 1) ? GL_RED : (sandChannels == 3) ? GL_RGB : GL_RGBA;
+    glTexImage2D(GL_TEXTURE_2D, 0, sandFormat, sandWidth, sandHeight, 0, sandFormat, GL_UNSIGNED_BYTE, sandData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(sandData);
+
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
@@ -577,6 +765,105 @@ int main() {
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+
+        // Draw flower bed base
+        glBindTexture(GL_TEXTURE_2D, dirtTexture); // Use dirt texture for the bed base
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(flowerBedVAO);
+        glm::mat4 flowerBedModel = glm::mat4(1.0f);
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &flowerBedModel[0][0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Enable blending for transparent flowers (if using PNG with alpha)
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // Draw flowers
+        glBindTexture(GL_TEXTURE_2D, flowerTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(flowerVAO);
+
+        // Flower positions within the bed
+        glm::vec3 flowerPositions[] = {
+        // First row (closest to path)
+        glm::vec3(1.3f, 0.0f, 1.4f),
+        glm::vec3(2.2f, 0.0f, 1.2f),
+        glm::vec3(3.1f, 0.0f, 1.5f),
+        glm::vec3(4.0f, 0.0f, 1.3f),
+        glm::vec3(4.9f, 0.0f, 1.6f),
+        glm::vec3(5.8f, 0.0f, 1.2f),
+        glm::vec3(6.7f, 0.0f, 1.4f),
+        
+        // Second row
+        glm::vec3(1.5f, 0.0f, 2.3f),
+        glm::vec3(2.4f, 0.0f, 2.1f),
+        glm::vec3(3.3f, 0.0f, 2.5f),
+        glm::vec3(4.2f, 0.0f, 2.2f),
+        glm::vec3(5.1f, 0.0f, 2.6f),
+        glm::vec3(6.0f, 0.0f, 2.3f),
+        glm::vec3(6.6f, 0.0f, 2.1f),
+        
+        // Third row
+        glm::vec3(1.2f, 0.0f, 3.2f),
+        glm::vec3(2.1f, 0.0f, 3.4f),
+        glm::vec3(3.0f, 0.0f, 3.1f),
+        glm::vec3(3.9f, 0.0f, 3.5f),
+        glm::vec3(4.8f, 0.0f, 3.2f),
+        glm::vec3(5.7f, 0.0f, 3.6f),
+        glm::vec3(6.5f, 0.0f, 3.3f),
+        
+        // Fourth row
+        glm::vec3(1.4f, 0.0f, 4.1f),
+        glm::vec3(2.3f, 0.0f, 4.3f),
+        glm::vec3(3.2f, 0.0f, 4.0f),
+        glm::vec3(4.1f, 0.0f, 4.4f),
+        glm::vec3(5.0f, 0.0f, 4.1f),
+        glm::vec3(5.9f, 0.0f, 4.5f),
+        glm::vec3(6.8f, 0.0f, 4.2f),
+        
+        // Fifth row
+        glm::vec3(1.6f, 0.0f, 5.0f),
+        glm::vec3(2.5f, 0.0f, 5.2f),
+        glm::vec3(3.4f, 0.0f, 4.9f),
+        glm::vec3(4.3f, 0.0f, 5.3f),
+        glm::vec3(5.2f, 0.0f, 5.0f),
+        glm::vec3(6.1f, 0.0f, 5.4f),
+        glm::vec3(6.7f, 0.0f, 5.1f),
+        
+        // Sixth row
+        glm::vec3(1.3f, 0.0f, 5.9f),
+        glm::vec3(2.2f, 0.0f, 6.1f),
+        glm::vec3(3.1f, 0.0f, 5.8f),
+        glm::vec3(4.0f, 0.0f, 6.2f),
+        glm::vec3(4.9f, 0.0f, 5.9f),
+        glm::vec3(5.8f, 0.0f, 6.3f),
+        glm::vec3(6.6f, 0.0f, 6.0f),
+        
+        // Back row
+        glm::vec3(1.5f, 0.0f, 6.8f),
+        glm::vec3(2.4f, 0.0f, 6.6f),
+        glm::vec3(3.3f, 0.0f, 6.9f),
+        glm::vec3(4.2f, 0.0f, 6.7f),
+        glm::vec3(5.1f, 0.0f, 6.8f),
+        glm::vec3(6.0f, 0.0f, 6.5f),
+        glm::vec3(6.8f, 0.0f, 6.7f),
+        };
+
+        // Draw each flower
+        for (int i = 0; i < 49; ++i) {
+            glm::mat4 model = glm::translate(glm::mat4(1.0f), flowerPositions[i]);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+            glDrawArrays(GL_TRIANGLES, 0, 12); // 12 vertices for the cross shape
+        }
+
+        // Draw bumpy sand patch
+        glBindTexture(GL_TEXTURE_2D, sandTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+        glBindVertexArray(sandVAO);
+        glm::mat4 sandModel = glm::mat4(1.0f);
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &sandModel[0][0]);
+        glDrawArrays(GL_TRIANGLES, 0, 48);
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
