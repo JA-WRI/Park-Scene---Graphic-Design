@@ -320,9 +320,55 @@ float sandVertices[] = {
     -4.25f, 0.25f, 2.5f,    0.0f, 1.0f, 0.0f,    0.225f, 0.75f
 };
 
+float cubeVertices[] = {
+    // positions          // texture coords
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+};
 unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;;
-unsigned int sandVAO, sandVBO;
+unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO ;
+
+float bladeRotation = 0.0f;
+
 
 
 int main() {
@@ -480,6 +526,46 @@ int main() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
+
+    // ----------------------
+// Windmill Tower
+// ----------------------
+glGenVertexArrays(1, &towerVAO);
+glGenBuffers(1, &towerVBO);
+glBindVertexArray(towerVAO);
+
+glBindBuffer(GL_ARRAY_BUFFER, towerVBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+
+// Position
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+// Texture
+glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+glEnableVertexAttribArray(2);
+
+glBindVertexArray(0); // Unbind
+
+// ----------------------
+// Windmill Blades
+// ----------------------
+
+glGenVertexArrays(1, &bladeVAO);
+glGenBuffers(1, &bladeVBO);
+glBindVertexArray(bladeVAO);
+
+glBindBuffer(GL_ARRAY_BUFFER, bladeVBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+
+// Position
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+// Texture
+glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+glEnableVertexAttribArray(2);
+
+glBindVertexArray(0);
+
     // Shader sources
     const char* vertexShaderSource = R"(
         #version 330 core
@@ -546,6 +632,32 @@ int main() {
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(data);
+
+    // Load steel texture
+    int SteelWidth, SteelHeight, SteelChannels;
+    unsigned char* steelData = stbi_load("resources/steel.jpg", &SteelWidth, &SteelHeight, &SteelChannels, 0);
+    if (!steelData) {
+        std::cerr << "Failed to load steel texture." << std::endl;
+        return -1;
+    }
+
+    GLuint steelTexture;
+    glGenTextures(1, &steelTexture);
+    glBindTexture(GL_TEXTURE_2D, steelTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum steelFormat = (SteelChannels == 1) ? GL_RED : (SteelChannels == 3) ? GL_RGB : GL_RGBA;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, steelFormat, SteelWidth, SteelHeight, 0, steelFormat, GL_UNSIGNED_BYTE, steelData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(steelData);
+
+    
 
     // Load dirt texture
     int dirtWidth, dirtHeight, dirtChannels;
@@ -863,6 +975,38 @@ int main() {
         glm::mat4 sandModel = glm::mat4(1.0f);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &sandModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 48);
+
+                    // Update blade rotation
+        bladeRotation += deltaTime * 50.0f;  // 50 degrees/second
+        if (bladeRotation > 360.0f)
+            bladeRotation -= 360.0f;
+                // Bind steel texture
+        glBindTexture(GL_TEXTURE_2D, steelTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+
+        // ----------------------
+        // Draw Tower
+        // ----------------------
+        glBindVertexArray(towerVAO);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, -4.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 5.0f, 0.0f)); // Tall tower
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // ----------------------
+        // Draw Blades (Hierarchical)
+        // ----------------------
+        glBindVertexArray(bladeVAO);
+        glm::mat4 bladeBase = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.5f, -4.0f)); // Top of tower
+        bladeBase = glm::rotate(bladeBase, glm::radians(bladeRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        for (int i = 0; i < 4; ++i) {
+            glm::mat4 bladeModel = glm::rotate(bladeBase, glm::radians(90.0f * i), glm::vec3(0.0f, 0.0f, 1.0f));
+            bladeModel = glm::translate(bladeModel, glm::vec3(1.0f, 0.0f, 0.0f));
+            bladeModel = glm::scale(bladeModel, glm::vec3(2.0f, 0.2f, 0.1f));
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &bladeModel[0][0]);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
 
         glfwSwapBuffers(window);
