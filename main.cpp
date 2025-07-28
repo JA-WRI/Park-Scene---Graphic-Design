@@ -1129,6 +1129,46 @@ int main() {
         glfwPollEvents();
     }
 
+    // Delete all Vertex Array Objects
+    glDeleteVertexArrays(1, &groundVAO);
+    glDeleteVertexArrays(1, &grassVAO);
+    glDeleteVertexArrays(1, &pathVAO);
+    glDeleteVertexArrays(1, &trunkVAO);
+    glDeleteVertexArrays(1, &leavesVAO);
+    glDeleteVertexArrays(1, &flowerBedVAO);
+    glDeleteVertexArrays(1, &flowerVAO);
+    glDeleteVertexArrays(1, &sandVAO);
+    glDeleteVertexArrays(1, &towerVAO);
+    glDeleteVertexArrays(1, &bladeVAO);
+    glDeleteVertexArrays(1, &benchVAO);
+    
+    // Delete all Vertex Buffer Objects
+    glDeleteBuffers(1, &groundVBO);
+    glDeleteBuffers(1, &grassVBO);
+    glDeleteBuffers(1, &pathVBO);
+    glDeleteBuffers(1, &trunkVBO);
+    glDeleteBuffers(1, &leavesVBO);
+    glDeleteBuffers(1, &flowerBedVBO);
+    glDeleteBuffers(1, &flowerVBO);
+    glDeleteBuffers(1, &sandVBO);
+    glDeleteBuffers(1, &towerVBO);
+    glDeleteBuffers(1, &bladeVBO);
+    glDeleteBuffers(1, &benchVBO);
+    
+    // Delete all Textures
+    glDeleteTextures(1, &grassTexture);
+    glDeleteTextures(1, &woodTexture);
+    glDeleteTextures(1, &steelTexture);
+    glDeleteTextures(1, &dirtTexture);
+    glDeleteTextures(1, &stoneTexture);
+    glDeleteTextures(1, &barkTexture);
+    glDeleteTextures(1, &leavesTexture);
+    glDeleteTextures(1, &flowerTexture);
+    glDeleteTextures(1, &sandTexture);
+    
+    // Delete Shader Program
+    glDeleteProgram(shaderProgram);
+
     glfwTerminate();
     return 0;
 }
