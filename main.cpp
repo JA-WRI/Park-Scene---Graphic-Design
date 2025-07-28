@@ -410,6 +410,7 @@ float benchVertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
+//imitialize all the elemtens VBO and VAO
 unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;
 unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO;
 
@@ -789,7 +790,7 @@ int main() {
     stbi_image_free(stoneData);
 
 
-    // load Bbrk texture
+    // load Bark texture
     int barkWidth, barkHeight, barkChannels;
     unsigned char* barkData = stbi_load("resources/bark.jpg", &barkWidth, &barkHeight, &barkChannels, 0);
     if (!barkData) { std::cerr << "Failed to load bark texture." << std::endl; return -1; }
@@ -1050,7 +1051,7 @@ int main() {
             glDrawArrays(GL_TRIANGLES, 0, 12); // 12 vertices for the cross shape
         }
 
-        // fraw bumpy sand patch
+        // draw bumpy sand patch
         glBindTexture(GL_TEXTURE_2D, sandTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(sandVAO);
