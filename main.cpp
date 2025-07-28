@@ -410,8 +410,8 @@ float benchVertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;;
-unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO ;
+unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;
+unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO;
 
 float bladeRotation = 0.0f;
 
@@ -479,7 +479,7 @@ int main() {
     glBindVertexArray(0);
 
 
-    // Path VAO
+    // path VAO
     glGenVertexArrays(1, &pathVAO);
     glGenBuffers(1, &pathVBO);
     glBindVertexArray(pathVAO);
@@ -488,8 +488,10 @@ int main() {
     // position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    //normal
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    //texture
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
@@ -510,7 +512,7 @@ int main() {
     glBindVertexArray(0);
 
 
-    // Leaves VAO
+    // leaves VAO
     glGenVertexArrays(1, &leavesVAO);
     glGenBuffers(1, &leavesVBO);
     glBindVertexArray(leavesVAO);
@@ -525,38 +527,38 @@ int main() {
     glBindVertexArray(0);
 
 
-    // Flower bed VAO setup
+    // flower bed VAO setup
     glGenVertexArrays(1, &flowerBedVAO);
     glGenBuffers(1, &flowerBedVBO);
     glBindVertexArray(flowerBedVAO);
     glBindBuffer(GL_ARRAY_BUFFER, flowerBedVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(flowerBedVertices), flowerBedVertices, GL_STATIC_DRAW);
-    // Position
+    // position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // Normal
+    // normal
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    // Texture
+    // texture
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 
-    // Flower VAO setup
+    // flower VAO setup
     glGenVertexArrays(1, &flowerVAO);
     glGenBuffers(1, &flowerVBO);
     glBindVertexArray(flowerVAO);
     glBindBuffer(GL_ARRAY_BUFFER, flowerVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(flowerVertices), flowerVertices, GL_STATIC_DRAW);
-    // Position
+    // position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // Texture
+    // texture
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 
-    // Sand VAO
+    // sand VAO
     glGenVertexArrays(1, &sandVAO);
     glGenBuffers(1, &sandVBO);
     glBindVertexArray(sandVAO);
@@ -581,56 +583,47 @@ int main() {
     glBindVertexArray(benchVAO);
     glBindBuffer(GL_ARRAY_BUFFER, benchVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(benchVertices), benchVertices, GL_STATIC_DRAW);
-
-    // Position attribute
+    // position 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
-    // Texture attribute
+    // texture 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 
 
-    // ----------------------
-// Windmill Tower
-// ----------------------
-glGenVertexArrays(1, &towerVAO);
-glGenBuffers(1, &towerVBO);
-glBindVertexArray(towerVAO);
+    // windmill Tower
+    glGenVertexArrays(1, &towerVAO);
+    glGenBuffers(1, &towerVBO);
+    glBindVertexArray(towerVAO);
 
-glBindBuffer(GL_ARRAY_BUFFER, towerVBO);
-glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, towerVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+    //position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    //texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0); // Unbind
 
-// Position
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-glEnableVertexAttribArray(0);
-// Texture
-glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-glEnableVertexAttribArray(2);
 
-glBindVertexArray(0); // Unbind
+    //windmill Blades
+    glGenVertexArrays(1, &bladeVAO);
+    glGenBuffers(1, &bladeVBO);
+    glBindVertexArray(bladeVAO);
 
-// ----------------------
-// Windmill Blades
-// ----------------------
+    glBindBuffer(GL_ARRAY_BUFFER, bladeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
-glGenVertexArrays(1, &bladeVAO);
-glGenBuffers(1, &bladeVBO);
-glBindVertexArray(bladeVAO);
-
-glBindBuffer(GL_ARRAY_BUFFER, bladeVBO);
-glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
-
-// Position
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-glEnableVertexAttribArray(0);
-// Texture
-glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-glEnableVertexAttribArray(2);
-
-glBindVertexArray(0);
+    glBindVertexArray(0);
 
     // Shader sources
     const char* vertexShaderSource = R"(
@@ -675,7 +668,7 @@ glBindVertexArray(0);
     glDeleteShader(fragmentShader);
 
 
-    // Load grass texture
+    // load grass texture
     int texWidth, texHeight, nrChannels;
     unsigned char* data = stbi_load("resources/grass.jpg", &texWidth, &texHeight, &nrChannels, 0);
     if (!data) {
@@ -699,7 +692,7 @@ glBindVertexArray(0);
 
     stbi_image_free(data);
 
-    // Load wood texture
+    // load wood texture
     int woodWidth, woodHeight, woodChannels;
     unsigned char* wooddata = stbi_load("resources/wood.jpg", &woodWidth, &woodHeight, &woodChannels, 0);
     if (!wooddata) {
@@ -723,7 +716,7 @@ glBindVertexArray(0);
 
     stbi_image_free(wooddata);
 
-    // Load steel texture
+    // load steel texture
     int SteelWidth, SteelHeight, SteelChannels;
     unsigned char* steelData = stbi_load("resources/steel.jpg", &SteelWidth, &SteelHeight, &SteelChannels, 0);
     if (!steelData) {
@@ -748,8 +741,7 @@ glBindVertexArray(0);
     stbi_image_free(steelData);
 
     
-
-    // Load dirt texture
+    // load dirt texture
     int dirtWidth, dirtHeight, dirtChannels;
     unsigned char* dirtData = stbi_load("resources/dirt.jpg", &dirtWidth, &dirtHeight, &dirtChannels, 0);
     if (!dirtData) {
@@ -773,7 +765,7 @@ glBindVertexArray(0);
     stbi_image_free(dirtData);
 
 
-    //Load path teaxture
+    // load path teaxture
     int stoneWidth, stoneHeight, stoneChannels;
     unsigned char* stoneData = stbi_load("resources/stone.jpg", &stoneWidth, &stoneHeight, &stoneChannels, 0);
     if (!stoneData) {
@@ -797,7 +789,7 @@ glBindVertexArray(0);
     stbi_image_free(stoneData);
 
 
-    //Load Bark texture
+    // load Bbrk texture
     int barkWidth, barkHeight, barkChannels;
     unsigned char* barkData = stbi_load("resources/bark.jpg", &barkWidth, &barkHeight, &barkChannels, 0);
     if (!barkData) { std::cerr << "Failed to load bark texture." << std::endl; return -1; }
@@ -817,7 +809,7 @@ glBindVertexArray(0);
     stbi_image_free(barkData);
 
 
-    //Load leave textures
+    // load leave texture
     int leavesWidth, leavesHeight, leavesChannels;
     unsigned char* leavesData = stbi_load("resources/leaves.jpg", &leavesWidth, &leavesHeight, &leavesChannels, 0);
     if (!leavesData) {
@@ -842,7 +834,7 @@ glBindVertexArray(0);
     stbi_image_free(leavesData);
 
 
-    // Load flower texture
+    // load flower texture
     int flowerWidth, flowerHeight, flowerChannels;
     unsigned char* flowerData = stbi_load("resources/flowers.png", &flowerWidth, &flowerHeight, &flowerChannels, 0);
     if (!flowerData) {
@@ -865,9 +857,9 @@ glBindVertexArray(0);
 
     stbi_image_free(flowerData);
 
-    // Load sand texture
+    // load sand texture
     int sandWidth, sandHeight, sandChannels;
-    unsigned char* sandData = stbi_load("resources/sand.jpg", &sandWidth, &sandHeight, &sandChannels, 0);
+    unsigned char* sandData = stbi_load("resources/sand2.jpg", &sandWidth, &sandHeight, &sandChannels, 0);
     if (!sandData) {
         std::cerr << "Failed to load sand texture. Using dirt texture instead." << std::endl;
         // Fallback to dirt texture if sand texture doesn't exist
@@ -910,7 +902,7 @@ glBindVertexArray(0);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &view[0][0]);
 
 
-        //Draw grass
+        // draw grass
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, grassTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
@@ -927,7 +919,7 @@ glBindVertexArray(0);
         glDrawArrays(GL_TRIANGLES, 0, 6 * 6);
         glBindVertexArray(0);
 
-        // Draw stone path
+        // draw stone path
         glBindTexture(GL_TEXTURE_2D, stoneTexture);
         glBindVertexArray(pathVAO);
         // Set model matrix for path (identity matrix - no transformation)
@@ -936,12 +928,12 @@ glBindVertexArray(0);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
 
-        // Draw tree trunks
+        // draw tree trunks
         glBindTexture(GL_TEXTURE_2D, barkTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(trunkVAO);
 
-        // Tree positions (4 corners)
+        // tree positions (4 corners)
         glm::vec3 trunkPositions[4] = {
             glm::vec3(-6.0f, 0.0f, -6.0f), // bottom-left
             glm::vec3( 6.0f, 0.0f, -6.0f), // bottom-right
@@ -949,26 +941,26 @@ glBindVertexArray(0);
             glm::vec3( 6.0f, 0.0f,  6.0f)  // top-right
         };
 
-        // Draw each tree trunk
+        // draw each tree trunk
         for (int i = 0; i < 4; ++i) {
             glm::mat4 model = glm::translate(glm::mat4(1.0f), trunkPositions[i]);
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        // Draw tree leaves
+        // draw tree leaves
         glBindTexture(GL_TEXTURE_2D, leavesTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(leavesVAO);
 
-        // Draw leaves for each tree (same positions as trunks)
+        // draw leaves for each tree (same positions as trunks)
         for (int i = 0; i < 4; ++i) {
             glm::mat4 model = glm::translate(glm::mat4(1.0f), trunkPositions[i]);
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        // Draw flower bed base
+        // draw flower bed base
         glBindTexture(GL_TEXTURE_2D, dirtTexture); // Use dirt texture for the bed base
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(flowerBedVAO);
@@ -976,16 +968,16 @@ glBindVertexArray(0);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &flowerBedModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        // Enable blending for transparent flowers (if using PNG with alpha)
+        // enable blending for transparent flowers (if using PNG with alpha)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // Draw flowers
+        // draw flowers
         glBindTexture(GL_TEXTURE_2D, flowerTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(flowerVAO);
 
-        // Flower positions within the bed
+        // flower positions within the bed
         glm::vec3 flowerPositions[] = {
         // First row (closest to path)
         glm::vec3(1.3f, 0.0f, 1.4f),
@@ -1051,14 +1043,14 @@ glBindVertexArray(0);
         glm::vec3(6.8f, 0.0f, 6.7f),
         };
 
-        // Draw each flower
+        // fraw each flower
         for (int i = 0; i < 49; ++i) {
             glm::mat4 model = glm::translate(glm::mat4(1.0f), flowerPositions[i]);
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 12); // 12 vertices for the cross shape
         }
 
-        // Draw bumpy sand patch
+        // fraw bumpy sand patch
         glBindTexture(GL_TEXTURE_2D, sandTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
         glBindVertexArray(sandVAO);
@@ -1066,26 +1058,23 @@ glBindVertexArray(0);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &sandModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 48);
 
-        // Update blade rotation
+        // update blade rotation
         bladeRotation += deltaTime * 50.0f;  // 50 degrees/second
         if (bladeRotation > 360.0f)
             bladeRotation -= 360.0f;
-                // Bind steel texture
+        // Bind steel texture
         glBindTexture(GL_TEXTURE_2D, steelTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
 
-        // ----------------------
-        // Draw Tower
-        // ----------------------
+
+        // Draw widnmill base
         glBindVertexArray(towerVAO);
         glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, -4.0f));
         model = glm::scale(model, glm::vec3(1.0f, 5.0f, 0.0f)); // Tall tower
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // ----------------------
-        // Draw Blades (Hierarchical)
-        // ----------------------
+        // draw Blades (Hierarchical)
         glBindVertexArray(bladeVAO);
         glm::mat4 bladeBase = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.5f, -4.0f)); // Top of tower
         bladeBase = glm::rotate(bladeBase, glm::radians(bladeRotation), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -1098,9 +1087,7 @@ glBindVertexArray(0);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
          
-        // ----------------------
         // Draw Bench
-        // ----------------------
         glBindTexture(GL_TEXTURE_2D, woodTexture);
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
 
@@ -1108,25 +1095,19 @@ glBindVertexArray(0);
         glm::vec3 benchPos = glm::vec3(0.0f, 0.0f, 0.0f);
         float benchRotation = 90.0f;
 
-        // ----------------------
         // Bench Base Transform
-        // ----------------------
         glBindVertexArray(benchVAO);
         glm::mat4 benchBase = glm::mat4(1.0f);
         benchBase = glm::translate(benchBase, benchPos + glm::vec3(1.0f, 0.6f,-2.0f));
         benchBase = glm::rotate(benchBase, glm::radians(benchRotation), glm::vec3(0.0f, 1.0f, 0.0f));
         benchBase = glm::rotate(benchBase, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Flip upright
 
-        // ----------------------
         // Draw Bench Seat
-        // ----------------------
         glm::mat4 benchModel = glm::scale(benchBase, glm::vec3(2.0f, 0.2f, 0.6f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &benchModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // ----------------------
         // Draw Bench Legs
-        // ----------------------
         glm::vec3 legScale = glm::vec3(0.1f, 0.6f, 0.1f);
         float sx = 2.0f * 0.5f - 0.1f;
         float sz = 0.6f * 0.5f - 0.1f;
@@ -1143,10 +1124,6 @@ glBindVertexArray(0);
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &legModel[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-
-
-
-
 
         glfwSwapBuffers(window);
         glfwPollEvents();
