@@ -20,10 +20,7 @@ You cna walk or even fly arouud the park and explore the different amenities thi
 
 
 
-
-Uploading Screen Recording 2025-07-27 213517.mp4…
-
-
+https://github.com/user-attachments/assets/f0128e44-97ce-4d58-935e-4685f7057d0b
 
 
 
