@@ -364,8 +364,54 @@ float cubeVertices[] = {
     -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
+
+float benchVertices[] = {
+    // positions          // texture coords
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+};
+
 unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO, flowerBedVAO, flowerBedVBO, flowerVAO, flowerVBO;;
-unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO ;
+unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO ;
 
 float bladeRotation = 0.0f;
 
@@ -527,6 +573,26 @@ int main() {
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 
+    //bench VAO
+    unsigned int benchVAO, benchVBO;
+    glGenVertexArrays(1, &benchVAO);
+    glGenBuffers(1, &benchVBO);
+
+    glBindVertexArray(benchVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, benchVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(benchVertices), benchVertices, GL_STATIC_DRAW);
+
+    // Position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Texture attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+
+    glBindVertexArray(0);
+
+
     // ----------------------
 // Windmill Tower
 // ----------------------
@@ -632,6 +698,30 @@ glBindVertexArray(0);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(data);
+
+    // Load wood texture
+    int woodWidth, woodHeight, woodChannels;
+    unsigned char* wooddata = stbi_load("resources/wood.jpg", &woodWidth, &woodHeight, &woodChannels, 0);
+    if (!wooddata) {
+        std::cerr << "Failed to load wood texture." << std::endl;
+        return -1;
+    }
+
+    GLuint woodTexture;
+    glGenTextures(1, &woodTexture);
+    glBindTexture(GL_TEXTURE_2D, woodTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    GLenum woodformat = (woodChannels == 1) ? GL_RED : (woodChannels == 3) ? GL_RGB : GL_RGBA;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, woodformat, woodWidth, woodHeight, 0, woodformat, GL_UNSIGNED_BYTE, wooddata);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(wooddata);
 
     // Load steel texture
     int SteelWidth, SteelHeight, SteelChannels;
@@ -976,7 +1066,7 @@ glBindVertexArray(0);
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &sandModel[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 48);
 
-                    // Update blade rotation
+        // Update blade rotation
         bladeRotation += deltaTime * 50.0f;  // 50 degrees/second
         if (bladeRotation > 360.0f)
             bladeRotation -= 360.0f;
@@ -1007,6 +1097,55 @@ glBindVertexArray(0);
             glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &bladeModel[0][0]);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+         
+        // ----------------------
+        // Draw Bench
+        // ----------------------
+        glBindTexture(GL_TEXTURE_2D, woodTexture);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+
+        // Bench position and rotation
+        glm::vec3 benchPos = glm::vec3(0.0f, 0.0f, 0.0f);
+        float benchRotation = 90.0f;
+
+        // ----------------------
+        // Bench Base Transform
+        // ----------------------
+        glBindVertexArray(benchVAO);
+        glm::mat4 benchBase = glm::mat4(1.0f);
+        benchBase = glm::translate(benchBase, benchPos + glm::vec3(1.0f, 0.6f,-2.0f));
+        benchBase = glm::rotate(benchBase, glm::radians(benchRotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        benchBase = glm::rotate(benchBase, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Flip upright
+
+        // ----------------------
+        // Draw Bench Seat
+        // ----------------------
+        glm::mat4 benchModel = glm::scale(benchBase, glm::vec3(2.0f, 0.2f, 0.6f));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &benchModel[0][0]);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // ----------------------
+        // Draw Bench Legs
+        // ----------------------
+        glm::vec3 legScale = glm::vec3(0.1f, 0.6f, 0.1f);
+        float sx = 2.0f * 0.5f - 0.1f;
+        float sz = 0.6f * 0.5f - 0.1f;
+        glm::vec3 legOffsets[4] = {
+            { -sx, 0.0f, -sz },
+            {  sx, 0.0f, -sz },
+            { -sx, 0.0f,  sz },
+            {  sx, 0.0f,  sz }
+        };
+
+        for (int i = 0; i < 4; ++i) {
+            glm::mat4 legModel = glm::translate(benchBase, legOffsets[i] + glm::vec3(0.0f, 0.3f, 0.0f));
+            legModel = glm::scale(legModel, legScale);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &legModel[0][0]);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+
+
+
 
 
         glfwSwapBuffers(window);
