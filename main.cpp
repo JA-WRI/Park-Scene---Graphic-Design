@@ -6,7 +6,7 @@
 #include "Camera.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
+//updated
 // Instantiate a Camera object at position (0, 3, 12)
 Camera camera(glm::vec3(0.0f, 3.0f, 12.0f));
 
