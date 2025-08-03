@@ -4,8 +4,8 @@ Jaden Wright-Maurais | 40276168 <br>
 Khyati Vyas | 40281818<br><br>
 
 <h1>Description</h1>
-This program is a 3D interactive map of a park. There is a designated path that you can follow made of stone.<br>
-You cna walk or even fly arouud the park and explore the different amenities this park has to offer.<br><br>
+This program is a 3D scene of a simple park. Explore the park scene using the keyboard and mouse<br>
+movements described below. And try out the advanced features this park has to offer.
 
 <h2>Keyboard/Mouse Movements</h2><br>
 
@@ -18,9 +18,17 @@ You cna walk or even fly arouud the park and explore the different amenities thi
 |Q = Moves up                                                 |                                                     |
 |E = Moves down                                               |                                                     |
 
+New Added features 
 
-
-https://github.com/user-attachments/assets/f0128e44-97ce-4d58-935e-4685f7057d0b
+|Keyboard              | Mouse                                       |
+|----------------------|---------------------------------------------|
+|T                     | Toggle night and day                        |
+|G                     | Grow or shrink trees                        |
+|L                     | Disco lights                                |
+|Space bar             | Turn off windmill                           |
+|Up arrow              | Speed up windmill                           |
+|Slow down             | Slow down windmill                          |
+|B                     | Rotate bench in increments of 45 degees     |
 
 
 
