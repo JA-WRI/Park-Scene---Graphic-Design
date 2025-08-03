@@ -58,10 +58,16 @@ const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
 unsigned int depthMapFBO[4];  // One framebuffer per light
 unsigned int depthMap[4];     // One depth texture per light
 
+int screenWidth = 800;
+int screenHeight = 600;
 
+// Update the framebuffer_size_callback function
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    screenWidth = width;
+    screenHeight = height;
     glViewport(0, 0, width, height);
 }
+
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS) {
@@ -1358,7 +1364,7 @@ int main() {
         }
 
         // 2. NORMAL RENDERING PASS
-        glViewport(0, 0, 800, 600);
+        glViewport(0, 0, screenWidth, screenHeight);
         float bgR = 0.05f + 0.45f * timeOfDay;
         float bgG = 0.08f + 0.52f * timeOfDay;
         float bgB = 0.15f + 0.65f * timeOfDay;
@@ -1367,7 +1373,8 @@ int main() {
 
         glUseProgram(shaderProgram);
 
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.f / 600.f, 0.1f, 100.0f);
+        float aspectRatio = (float)screenWidth / (float)screenHeight;
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
 
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &projection[0][0]);
