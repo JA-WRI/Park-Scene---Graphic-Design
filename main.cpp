@@ -6,6 +6,9 @@
 #include "Camera.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#define TINYOBJLOADER_IMPLEMENTATION
+#include "tiny_obj_loader.h"
+
 
 // Instantiate a Camera object at position (0, 3, 12)
 Camera camera(glm::vec3(0.0f, 3.0f, 12.0f));
@@ -469,6 +472,9 @@ float benchVertices[] = {
 //imitialize all the elemtens VBO and VAO
 unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesVAO, leavesVBO, grassVAO, grassVBO;
 unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO;
+unsigned int statueVAO, statueVBO, statueTexture;
+int statueVertexCount; // store number of vertices
+
 
 
 void renderScene(GLuint shaderProgram, bool shadowPass, GLuint grassTexture, GLuint dirtTexture, 
@@ -542,6 +548,13 @@ void renderScene(GLuint shaderProgram, bool shadowPass, GLuint grassTexture, GLu
         legModel = glm::scale(legModel, glm::vec3(0.1f, 0.6f, 0.1f));
         renderObject(benchVAO, woodTexture, legModel, 36);
     }
+    //Render statue
+            // Render the statue
+glm::mat4 statueModel = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, 5.0f)); // Position it
+statueModel = glm::scale(statueModel, glm::vec3(0.005f, 0.005f, 0.005f)); // Resize if too big or small
+statueModel = glm::rotate(statueModel, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate around X-axis
+renderObject(statueVAO, statueTexture, statueModel, statueVertexCount);
+
 }
 
 void checkShaderCompilation(GLuint shader, const std::string& type) {
@@ -562,6 +575,65 @@ void checkProgramLinking(GLuint program) {
         glGetProgramInfoLog(program, 1024, NULL, infoLog);
         std::cerr << "ERROR::PROGRAM_LINKING_ERROR\n" << infoLog << std::endl;
     }
+}
+
+void loadStatueModel(const std::string& path, const std::string& mtlPath) {
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+    std::string warn, err;
+
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
+                                path.c_str(), mtlPath.c_str());
+
+    if (!ret) {
+        std::cerr << "Failed to load OBJ: " << err << std::endl;
+        return;
+    }
+
+    std::vector<float> vertices;
+    for (auto& shape : shapes) {
+        for (auto& index : shape.mesh.indices) {
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 0]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 1]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 2]);
+
+            vertices.push_back(attrib.normals[3 * index.normal_index + 0]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 1]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 2]);
+
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 0]);
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 1]);
+        }
+    }
+    statueVertexCount = vertices.size() / 8;
+
+    glGenVertexArrays(1, &statueVAO);
+    glGenBuffers(1, &statueVBO);
+    glBindVertexArray(statueVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, statueVBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+}
+
+GLuint loadTexture(const char* filename) {
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
+    GLuint texID;
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
+                 nrChannels == 4 ? GL_RGBA : GL_RGB,
+                 GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    stbi_image_free(data);
+    return texID;
 }
 
 
@@ -1236,6 +1308,7 @@ int main() {
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(sandData);
+   
 
     // Setup shadow mapping
     for(int i = 0; i < 4; i++) {
@@ -1262,7 +1335,9 @@ int main() {
         
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
-    
+     //statue 
+    loadStatueModel("resources/statue.obj", "resources/"); // If .mtl in same folder, tinyobjloader loads it automatically
+    statueTexture = loadTexture("resources/copper.jpg");
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
@@ -1420,6 +1495,7 @@ int main() {
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
     }
 
     // Delete all Vertex Array Objects
