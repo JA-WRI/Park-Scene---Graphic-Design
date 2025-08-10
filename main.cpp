@@ -474,6 +474,8 @@ unsigned int groundVAO, groundVBO, pathVAO, pathVBO, trunkVAO, trunkVBO, leavesV
 unsigned int sandVAO, sandVBO,towerVAO, towerVBO,bladeVAO, bladeVBO, benchVAO, benchVBO;
 unsigned int statueVAO, statueVBO, statueTexture;
 int statueVertexCount; // store number of vertices
+unsigned int slideVAO, slideVBO, slideTexture;
+int slideVertexCount; // store number of vertices
 
 
 
@@ -555,6 +557,13 @@ statueModel = glm::scale(statueModel, glm::vec3(0.005f, 0.005f, 0.005f)); // Res
 statueModel = glm::rotate(statueModel, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate around X-axis
 renderObject(statueVAO, statueTexture, statueModel, statueVertexCount);
 
+//Render the Slide
+// Render slide
+glm::mat4 slideModel = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 2.0f)); // Position it
+slideModel = glm::scale(slideModel, glm::vec3(0.01f, 0.01f, 0.01f)); // Adjust scale as needed
+// slideModel = glm::rotate(slideModel, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate if needed
+renderObject(slideVAO, slideTexture, slideModel, slideVertexCount);
+
 }
 
 void checkShaderCompilation(GLuint shader, const std::string& type) {
@@ -621,7 +630,50 @@ void loadStatueModel(const std::string& path, const std::string& mtlPath) {
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 }
+void loadSlideModel(const std::string& path, const std::string& mtlPath) {
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+    std::string warn, err;
 
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
+                                path.c_str(), mtlPath.c_str());
+
+    if (!ret) {
+        std::cerr << "Failed to load slide OBJ: " << err << std::endl;
+        return;
+    }
+
+    std::vector<float> vertices;
+    for (auto& shape : shapes) {
+        for (auto& index : shape.mesh.indices) {
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 0]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 1]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 2]);
+
+            vertices.push_back(attrib.normals[3 * index.normal_index + 0]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 1]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 2]);
+
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 0]);
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 1]);
+        }
+    }
+    slideVertexCount = vertices.size() / 8;
+
+    glGenVertexArrays(1, &slideVAO);
+    glGenBuffers(1, &slideVBO);
+    glBindVertexArray(slideVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, slideVBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+}
 GLuint loadTexture(const char* filename) {
     int width, height, nrChannels;
     unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
@@ -633,6 +685,21 @@ GLuint loadTexture(const char* filename) {
                  GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(data);
+    return texID;
+}
+GLuint createColorTexture(float r, float g, float b) {
+    unsigned char colorData[3] = {
+        (unsigned char)(r * 255),
+        (unsigned char)(g * 255),
+        (unsigned char)(b * 255)
+    };
+    
+    GLuint texID;
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, colorData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     return texID;
 }
 
@@ -1338,6 +1405,10 @@ int main() {
      //statue 
     loadStatueModel("resources/statue.obj", "resources/"); // If .mtl in same folder, tinyobjloader loads it automatically
     statueTexture = loadTexture("resources/copper.jpg");
+    //Slide
+    // Load slide model and texture
+loadSlideModel("resources/slide.obj", "resources/");
+slideTexture = createColorTexture(0.9f, 0.2f, 0.2f); // Use appropriate texture file
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
