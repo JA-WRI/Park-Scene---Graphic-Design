@@ -1234,7 +1234,7 @@ int main() {
     lights[3] = {
         camera.Position,                      // Will be updated each frame
         glm::vec3(1.0f, 1.0f, 0.9f),         // Bright white/yellow light
-        10.0f,                                // Higher intensity for flashlight effect
+        3.0f,                                // Higher intensity for flashlight effect
         glm::vec3(0.0f, 0.0f, 0.0f),         // No automatic movement
         0.0f                                  // No speed (camera controlled)
     };
@@ -1525,7 +1525,7 @@ playgroundTexture = loadTexture("resources/wood.jpg");
             }
         }
         lights[3].position = camera.Position;
-        lights[3].intensity = flashlightOn ? 10.0f : 0.0f;
+        lights[3].intensity = flashlightOn ? 3.0f : 0.0f;
 
         processInput(window);
 
