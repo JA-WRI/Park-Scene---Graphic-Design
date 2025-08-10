@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/d5bae8e9-4840-4bbb-b611-f33800f993e8
 # COMP-371
 
 Jaden Wright-Maurais | 40276168 <br>
@@ -31,4 +33,9 @@ New Added features
 |B                     | Rotate bench in increments of 45 degees     |
 
 
+
+
+
+
+https://github.com/user-attachments/assets/71f4d8a7-a728-44d3-8f98-17222893facd
 
