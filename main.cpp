@@ -1525,7 +1525,7 @@ playgroundTexture = loadTexture("resources/wood.jpg");
             }
         }
         lights[3].position = camera.Position;
-        lights[3].intensity = flashlightOn ? 3.0f : 0.0f;
+        lights[3].intensity = flashlightOn ? 5.0f : 0.0f;
 
         processInput(window);
 
