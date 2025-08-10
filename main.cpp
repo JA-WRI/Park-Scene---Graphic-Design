@@ -476,6 +476,8 @@ unsigned int statueVAO, statueVBO, statueTexture;
 int statueVertexCount; // store number of vertices
 unsigned int slideVAO, slideVBO, slideTexture;
 int slideVertexCount; // store number of vertices
+unsigned int playgroundVAO, playgroundVBO, playgroundTexture;
+int playgroundVertexCount; // store number of vertices
 
 
 
@@ -563,6 +565,13 @@ glm::mat4 slideModel = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 2.
 slideModel = glm::scale(slideModel, glm::vec3(0.01f, 0.01f, 0.01f)); // Adjust scale as needed
 // slideModel = glm::rotate(slideModel, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate if needed
 renderObject(slideVAO, slideTexture, slideModel, slideVertexCount);
+
+//Render the Playground (positioned behind the slide on sand)
+glm::mat4 playgroundModel = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0f, 0.0f, -2.0f)); // Behind slide on sand
+playgroundModel = glm::scale(playgroundModel, glm::vec3(0.005f, 0.005f, 0.005f)); // Adjust scale as needed
+  playgroundModel = glm::rotate(playgroundModel, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotate if needed
+renderObject(playgroundVAO, playgroundTexture, playgroundModel, playgroundVertexCount);
+
 
 }
 
@@ -665,6 +674,50 @@ void loadSlideModel(const std::string& path, const std::string& mtlPath) {
     glGenBuffers(1, &slideVBO);
     glBindVertexArray(slideVAO);
     glBindBuffer(GL_ARRAY_BUFFER, slideVBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+}
+void loadPlaygroundModel(const std::string& path, const std::string& mtlPath) {
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+    std::string warn, err;
+
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
+                                path.c_str(), mtlPath.c_str());
+
+    if (!ret) {
+        std::cerr << "Failed to load playground OBJ: " << err << std::endl;
+        return;
+    }
+
+    std::vector<float> vertices;
+    for (auto& shape : shapes) {
+        for (auto& index : shape.mesh.indices) {
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 0]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 1]);
+            vertices.push_back(attrib.vertices[3 * index.vertex_index + 2]);
+
+            vertices.push_back(attrib.normals[3 * index.normal_index + 0]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 1]);
+            vertices.push_back(attrib.normals[3 * index.normal_index + 2]);
+
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 0]);
+            vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 1]);
+        }
+    }
+    playgroundVertexCount = vertices.size() / 8;
+
+    glGenVertexArrays(1, &playgroundVAO);
+    glGenBuffers(1, &playgroundVBO);
+    glBindVertexArray(playgroundVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, playgroundVBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -1409,6 +1462,9 @@ int main() {
     // Load slide model and texture
 loadSlideModel("resources/slide.obj", "resources/");
 slideTexture = createColorTexture(0.9f, 0.2f, 0.2f); // Use appropriate texture file
+
+loadPlaygroundModel("resources/playground.obj", "resources/");
+playgroundTexture = loadTexture("resources/wood.jpg");
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = (float)glfwGetTime();
