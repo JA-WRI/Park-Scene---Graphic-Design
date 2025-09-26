@@ -1,8 +1,3 @@
-# COMP-371
-
-Jaden Wright-Maurais | 40276168 <br>
-Khyati Vyas | 40281818<br><br>
-
 <h1>Description</h1>
 This program is a 3D scene of a simple park. Explore the park scene using the keyboard and mouse<br>
 movements described below. And try out the advanced features this park has to offer.
@@ -36,5 +31,6 @@ New Added features
 
 
 https://github.com/user-attachments/assets/71f4d8a7-a728-44d3-8f98-17222893facd
+
 
 
